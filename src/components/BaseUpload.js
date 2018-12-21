@@ -35,7 +35,7 @@ class BaseUpload extends Component{
     // 删除已上传文件
     handleDeleted = (item) => {
         console.log(item);
-        this.setState({fileList:[]});
+        this.setState({fileList: this.state.fileList.filter((it) => item.key !== it.key)});
     };
 
     getHandles = () => {
@@ -47,7 +47,7 @@ class BaseUpload extends Component{
     handleOnChange = async (files) => {
 
         const {uploadServerHost, dealResponse} = this.props;
-        console.log(uploadServerHost);
+
         for(let index = 0; index < files.length; index++){
             const file = files[index];
             const signatureInfo = await httpFetch('jpg',400,400);

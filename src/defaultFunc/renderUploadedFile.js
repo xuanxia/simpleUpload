@@ -20,7 +20,7 @@ export default  (fileList, props, handles) => {
                 alt=""
             />
             <a
-                onClick={(item) => {
+                onClick={() => {
                     handleDeleted &&  handleDeleted(item);
                 }}
                 style={{
