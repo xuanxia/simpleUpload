@@ -3,19 +3,11 @@
  **/
 
 // React Libs
-import React, {PureComponent} from 'react';
-import SimpleUpload from './components/base';
-import { renderUploadedFile, UploadButton } from './defaultFunc';
+import BaseUpload from './components/BaseUpload';
+import ImageUpload from './components/ImageUpload';
 
-export default class ReactUpload extends PureComponent{
-
-    render(){
-        return  <SimpleUpload
-            multiple={true}
-            imageUploadServerHost='https://hp-file-lf.oss-cn-hangzhou.aliyuncs.com'
-            renderUploadedFile={renderUploadedFile}
-            UploadButton={UploadButton}
-        />;
-    }
-}
+export {
+    BaseUpload,
+    ImageUpload
+};
 

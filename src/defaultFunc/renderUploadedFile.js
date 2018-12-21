@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 export default  (fileList, props, handles) => {
-    const {imageUploadServerHost} = props;
 
     if(!fileList || !fileList.length){
         return;
@@ -9,7 +8,7 @@ export default  (fileList, props, handles) => {
     const { handleDeleted } = handles;
 
     return <div style={{display: 'inline-block'}}>{
-        fileList.map((item) => <div  key={item.data.key} style={{
+        fileList.map((item) => <div  key={item.key} style={{
             display: 'inline-block',
             position: 'relative',
             marginRight: 12
@@ -17,7 +16,7 @@ export default  (fileList, props, handles) => {
             <img
                 width={100}
                 height={100}
-                src={`${imageUploadServerHost}/${item.data.key}`}
+                src={`${item.url}`}
                 alt=""
             />
             <a

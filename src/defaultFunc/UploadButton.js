@@ -13,9 +13,15 @@ export default class UploadButton extends  Component{
             width:100,
             height:100,
             position:'relative',
-            border: '1px solid'
+            border: '1px solid #dbdbdb',
+            fontSize: 70,
+            textAlign: 'center',
+            display:'inline-block',
+            verticalAlign:'top',
+            color:'rgb(128,134,139)'
         }}>
-            上传文件
+            <span style={{cursor:'pointer'}}>+</span>
+
             {
                 this.props.children
             }

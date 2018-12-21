@@ -1,19 +1,19 @@
 // 基本库
-import path from 'path'
-import webpack from 'webpack'
+import path from 'path';
+import webpack from 'webpack';
 // 从基础设置继承
-import merge from 'webpack-merge'
-import baseConfig from './webpack.base.config.babel.js'
-import nodeExternals from 'webpack-node-externals'
+import merge from 'webpack-merge';
+import baseConfig from './webpack.base.config.babel.js';
+import nodeExternals from 'webpack-node-externals';
+
+const entry = {
+    Base: './src/components/Base.js',
+    ImageUpload: './src/components/ImageUpload.js',
+};
 
 const config =  merge.smart(baseConfig, {
 
-    entry: {
-        app: [
-            // App Entry
-            './src/index.js'
-        ]
-    },
+    entry,
 
     output: {
         path: path.resolve(__dirname, '../lib'),
@@ -38,6 +38,6 @@ const config =  merge.smart(baseConfig, {
 
     externals: [nodeExternals()]
 
-})
+});
 
-export default config
+export default config;

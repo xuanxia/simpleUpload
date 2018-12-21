@@ -7,10 +7,11 @@ export default  (suffix,width,height, extraParam) => {
         `height=${height}`,
     ].join('&')}`;
 
-    return new Promise((resolve,reject)=>{
-        fetch(url).then(async (response)=>{
+    return new Promise((resolve,reject) => {
+        fetch(url).then(async (response) => {
             const res = await response.json();
             const formData = res.data;
+
             resolve({
                 key: formData.dirPath,
                 policy: formData.policy,
@@ -19,6 +20,6 @@ export default  (suffix,width,height, extraParam) => {
                 callback: formData.callback,
                 signature: formData.signature,
             });
-        })
-    })
+        });
+    });
 };

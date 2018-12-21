@@ -2,21 +2,17 @@
 export default  (option) => {
     const {
         file,
-        imageUploadServerHost,
+        uploadServerHost,
         signatureInfo,
-        onProgress
     } = option;
 
     return new Promise((resolve,reject) => {
 
         const progressFunction = (evt) => {
-            console.log('progressFunction');
             console.log(evt);
         };
 
         const uploadComplete = (evt) => {
-            console.log('uploadComplete');
-
             if(evt && evt.target && evt.target.status === 200){
                 try {
                     resolve(JSON.parse(evt.target.response));
@@ -39,12 +35,12 @@ export default  (option) => {
         for(let key in signatureInfo){
             form.append(key, signatureInfo[key]);
         }
-        console.log(imageUploadServerHost);
+        console.log(uploadServerHost);
         form.append("file", file); // 文件对象
 
         const xhr = new XMLHttpRequest();  // XMLHttpRequest 对象
 
-        xhr.open("post", imageUploadServerHost, true); // post方式，url为服务器请求地址，true 该参数规定请求是否异步处理。
+        xhr.open("post", uploadServerHost, true); // post方式，url为服务器请求地址，true 该参数规定请求是否异步处理。
         xhr.onload = uploadComplete; // 请求完成
         xhr.onerror =  uploadFailed; // 请求失败
         xhr.upload.onprogress = progressFunction;// 上传进度调用方法实现

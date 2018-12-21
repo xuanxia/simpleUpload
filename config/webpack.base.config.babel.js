@@ -1,7 +1,7 @@
 // libs
-import path from 'path'
-import webpack from 'webpack'
-import autoprefixer from 'autoprefixer'
+import path from 'path';
+import webpack from 'webpack';
+import autoprefixer from 'autoprefixer';
 
 // 本地服务器配置
 export const host = process.env.HOST || '127.0.0.1';
@@ -27,7 +27,7 @@ export default {
         // 跳过编译时出错的代码并记录，使编译后运行时的包不会发生错误
         new webpack.NoEmitOnErrorsPlugin(),
         // postcss配置, 补全浏览器前缀
-        new webpack.LoaderOptionsPlugin({ options: { postcss: [ autoprefixer ] } })
+        new webpack.LoaderOptionsPlugin({ options: { postcss: [autoprefixer] } })
     ],
 
     module: {
@@ -108,12 +108,12 @@ export default {
             },
         ]
     },
-}
+};
 
 // 生成对应的样式参数配置
 function styleProcessor(type = 'css', options = { modules: false }) {
     // 各类型 Style 的 Loader 配置项
-    const styleLoader = { loader: 'style-loader' }
+    const styleLoader = { loader: 'style-loader' };
     const cssLoader = {
         loader: 'css-loader',
         options: options.modules ? {
@@ -123,8 +123,8 @@ function styleProcessor(type = 'css', options = { modules: false }) {
         } : {}
     };
     const lessLoader = { loader: 'less-loader', options: {
-            javascriptEnabled: true
-        }};
+        javascriptEnabled: true
+    }};
     const postcssLoader =  {
         loader: 'postcss-loader',
         options: {
@@ -137,10 +137,10 @@ function styleProcessor(type = 'css', options = { modules: false }) {
 
     // 根据传入的配置返回不同的组合
     if(type === 'css') {
-        return [styleLoader, cssLoader, postcssLoader]
+        return [styleLoader, cssLoader, postcssLoader];
     }
     if(type === 'less') {
-        return [styleLoader, cssLoader, postcssLoader, lessLoader]
+        return [styleLoader, cssLoader, postcssLoader, lessLoader];
     }
 }
 

@@ -1,15 +1,15 @@
 // 基本库
-import path from 'path'
-import webpack from 'webpack'
+import path from 'path';
+import webpack from 'webpack';
 // 从基础设置继承
-import merge from 'webpack-merge'
-import baseConfig from './webpack.base.config.babel.js'
+import merge from 'webpack-merge';
+import baseConfig from './webpack.base.config.babel.js';
 // 本地服务器配置
-import { host, port } from './webpack.base.config.babel.js'
+import { host, port } from './webpack.base.config.babel.js';
 // 系统
-import os from 'os'
+import os from 'os';
 // 自动打开浏览器
-import OpenBrowserPlugin from 'open-browser-webpack-plugin'
+import OpenBrowserPlugin from 'open-browser-webpack-plugin';
 
 export default merge.smart(baseConfig,{
     devtool: 'inline-source-map',
@@ -41,7 +41,7 @@ export default merge.smart(baseConfig,{
         // 自动打开浏览器 (非Mac下)
         new OpenBrowserPlugin({
             url: `http://${host}:${port}`,
-            browser: os.platform()==='darwin' ? undefined : 'Chrome'
+            browser: os.platform() === 'darwin' ? undefined : 'Chrome'
         })
     ],
     devServer: {
@@ -52,4 +52,4 @@ export default merge.smart(baseConfig,{
         contentBase: './public',
         historyApiFallback: true
     }
-})
+});
