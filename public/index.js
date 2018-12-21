@@ -25,6 +25,7 @@ export default  class Demo extends Component{
                 dealResponse={dealResponse}
                 uploadServerHost={host}
                 downloadServerHost={host}
+                draggable={true}
             />
         </div>;
     }

@@ -1,6 +1,8 @@
-import renderUploadedFile from './renderUploadedFile';
+import UploadedImage from './UploadedImage';
 import UploadButton from './UploadButton';
+import DraggableUploadedImage from './DraggableUploadedImage';
 export {
-    renderUploadedFile,
+    UploadedImage,
     UploadButton,
+    DraggableUploadedImage,
 };

@@ -7,7 +7,7 @@ import baseConfig from './webpack.base.config.babel.js';
 import nodeExternals from 'webpack-node-externals';
 
 const entry = {
-    Base: './src/components/Base.js',
+    Base: './src/components/BaseUpload.js',
     ImageUpload: './src/components/ImageUpload.js',
 };
 

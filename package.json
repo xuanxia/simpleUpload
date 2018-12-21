@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "react": "^16.4.2",
+    "react-beautiful-dnd": "^10.0.3",
     "react-dom": "^16.4.2"
   },
   "devDependencies": {

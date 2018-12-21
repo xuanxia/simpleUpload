@@ -13,7 +13,7 @@ class BaseUpload extends Component{
         downloadServerHost:'', // 文件下载地址
         thumbnail:'', // 预览图后缀
         multiple: false, // 是否批量上传
-        renderUploadedFile: () => {}, // 渲染已上传的图片方法
+        UploadedImage: null, // 已上传的图片展示
         UploadButton: null, // 上传按钮
         value:['test/2018-12-20/21e7f9b0-0426-11e9-b976-3bc8b2c85260_400_400.jpg',], // 回显值
         dealResponse:(response) => response, // 处理图片服务器返回值
@@ -38,9 +38,23 @@ class BaseUpload extends Component{
         this.setState({fileList: this.state.fileList.filter((it) => item.key !== it.key)});
     };
 
+    // 排序
+    handleSort =  (startIndex, endIndex) => {
+
+        const result = Array.from(this.state.fileList);
+        const temp = result[startIndex];
+
+        result[startIndex] = result[endIndex];
+        result[endIndex] = temp;
+
+        this.setState({fileList: result});
+
+    };
+
     getHandles = () => {
         return {
             handleDeleted: this.handleDeleted,
+            handleSort: this.handleSort,
         };
     };
 
@@ -80,7 +94,7 @@ class BaseUpload extends Component{
 
     render(){
 
-        const { multiple, renderUploadedFile, UploadButton } = this.props;
+        const { multiple, UploadedImage, UploadButton } = this.props;
 
         const {fileList,fileInput} = this.state;
 
@@ -88,7 +102,7 @@ class BaseUpload extends Component{
 
         return <div className='simple-upload-wrapper'>
             {
-                renderUploadedFile(fileList, this.props,this.getHandles())
+                UploadedImage &&  <UploadedImage fileList={fileList} {...this.props} handles={this.getHandles()}/>
             }
             {
                 UploadButton ?
