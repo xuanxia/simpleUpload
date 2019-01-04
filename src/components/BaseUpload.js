@@ -3,8 +3,7 @@
 */
 
 import React, { Component } from 'react';
-import {httpFetch,xhrUpload,getInitFileList} from '../utils';
-
+import {xhrUpload,getInitFileList} from '../utils';
 
 class BaseUpload extends Component{
 
@@ -17,6 +16,7 @@ class BaseUpload extends Component{
         UploadButton: null, // 上传按钮
         value:['test/2018-12-20/21e7f9b0-0426-11e9-b976-3bc8b2c85260_400_400.jpg',], // 回显值
         dealResponse:(response) => response, // 处理图片服务器返回值
+        getSignatureInfo: () => {},
     };
 
     constructor(props){
@@ -60,24 +60,41 @@ class BaseUpload extends Component{
 
     handleOnChange = async (files) => {
 
-        const {uploadServerHost, dealResponse} = this.props;
+        const {uploadServerHost, dealResponse, getSignatureInfo} = this.props;
 
         for(let index = 0; index < files.length; index++){
             const file = files[index];
-            const signatureInfo = await httpFetch('jpg',400,400);
-            const result = await xhrUpload({
-                file,uploadServerHost,signatureInfo
-            });
 
-            this.setState({
-                fileList: this.state.fileList.concat([Object.assign({},{
-                    name: file.name,
-                    size: file.size,
-                    type: file.type,
-                    webkitRelativePath: file.webkitRelativePath,
-                },dealResponse(result))])
-            });
+            const imgBlobUrl = URL.createObjectURL(file);
 
+            const img = document.createElement("img");
+
+            img.onload = async () => {
+                const {width, height} = img;
+                const option = {
+                    file,
+                    width,
+                    height,
+                };
+                const signatureInfo = await getSignatureInfo(option);
+
+                console.log(signatureInfo);
+                const result = await xhrUpload({
+                    file,uploadServerHost,signatureInfo
+                });
+
+                this.setState({
+                    fileList: this.state.fileList.concat([Object.assign({},{
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        webkitRelativePath: file.webkitRelativePath,
+                    },dealResponse(result))])
+                });
+
+            };
+            img.src = imgBlobUrl;
+            
         }
 
     };

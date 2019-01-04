@@ -11,7 +11,7 @@ import baseConfig from './webpack.lib.base.config.babel.js';
 
 const config =  merge.smart(baseConfig, {
     output: {
-        filename: 'production.min.js',
+        filename: '[name]/production.min.js',
     },
 
     plugins: [
