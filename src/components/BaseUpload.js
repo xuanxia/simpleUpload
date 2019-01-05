@@ -14,7 +14,7 @@ class BaseUpload extends Component{
         multiple: false, // 是否批量上传
         UploadedImage: null, // 已上传的图片展示
         UploadButton: null, // 上传按钮
-        value:['test/2018-12-20/21e7f9b0-0426-11e9-b976-3bc8b2c85260_400_400.jpg',], // 回显值
+        value:[], // 回显值
         dealResponse:(response) => response, // 处理图片服务器返回值
         getSignatureInfo: () => {},
     };
@@ -76,9 +76,10 @@ class BaseUpload extends Component{
                     width,
                     height,
                 };
-                const signatureInfo = await getSignatureInfo(option);
+                const signatureInfo = await getSignatureInfo(option).catch(() => {
+                    console.error('获取签名字段失败');
+                });
 
-                console.log(signatureInfo);
                 const result = await xhrUpload({
                     file,uploadServerHost,signatureInfo
                 });
