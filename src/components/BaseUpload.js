@@ -76,9 +76,7 @@ class BaseUpload extends Component{
                     width,
                     height,
                 };
-                const signatureInfo = await getSignatureInfo(option).catch(() => {
-                    console.error('获取签名字段失败');
-                });
+                const signatureInfo = await getSignatureInfo(option);
 
                 const result = await xhrUpload({
                     file,uploadServerHost,signatureInfo
@@ -110,17 +108,30 @@ class BaseUpload extends Component{
         });
     };
 
+    getRenderUploaded = () => {
+        const {  UploadedImage } = this.props;
+        const {fileList} = this.state;
+
+        if(fileList && fileList.length && UploadedImage){
+            return <UploadedImage
+                fileList={fileList}
+                {...this.props}
+                handles={this.getHandles()}
+            />;
+        }
+        return null;
+    };
+
     render(){
 
-        const { multiple, UploadedImage, UploadButton } = this.props;
+        const { multiple, UploadButton } = this.props;
 
-        const {fileList,fileInput} = this.state;
+        const {fileInput} = this.state;
 
-        console.log(fileList);
 
         return <div className='simple-upload-wrapper'>
             {
-                UploadedImage &&  <UploadedImage fileList={fileList} {...this.props} handles={this.getHandles()}/>
+                this.getRenderUploaded()
             }
             {
                 UploadButton ?

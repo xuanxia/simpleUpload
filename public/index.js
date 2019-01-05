@@ -1,6 +1,6 @@
 // React Libs
 import React, {Component} from 'react';
-import { ImageUpload, BaseUpload } from '@/index';
+import { ImageUpload } from '@/index';
 
 
 const getSignatureInfo =  (option) => {
