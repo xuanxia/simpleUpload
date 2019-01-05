@@ -169,6 +169,8 @@ class BaseUpload extends Component{
                             multiple={ (totalNum - fileList.length)  > 1}
                             onChange={(event) => {
                                 this.handleOnChange(event.target.files);
+                                // 解决input file onchang 事件触发一次后失效问题
+                                event.target.value = '';
                             }}
                             style={{
                                 width:fileInput.width,
@@ -187,6 +189,8 @@ class BaseUpload extends Component{
                         multiple={(totalNum - fileList.length)  > 1}
                         onChange={(event) => {
                             this.handleOnChange(event.target.files);
+                            // 解决input file onchang 事件触发一次后失效问题
+                            event.target.value = '';
                         }}
                     /> : null
             }

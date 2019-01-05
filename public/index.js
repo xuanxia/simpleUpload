@@ -62,7 +62,7 @@ export default  class Demo extends Component{
                 uploadServerHost={host}
                 downloadServerHost={host}
                 draggable={true}
-                totalNum={2}
+                totalNum={5}
                 showImage={(index,list) => {
                     console.log(index, list);
                 }}

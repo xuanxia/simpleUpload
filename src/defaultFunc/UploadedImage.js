@@ -60,7 +60,7 @@ export default class UploadedImage  extends Component{
                             top: 0,
                             zIndex: 9,
                             color: '#fff',
-                            padding: '44px 38px',
+                            padding: '43px 38px',
                             cursor: 'pointer',
                         }}
                     >
