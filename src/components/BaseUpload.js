@@ -11,12 +11,17 @@ class BaseUpload extends Component{
         uploadServerHost:'', // 文件上传地址
         downloadServerHost:'', // 文件下载地址
         thumbnail:'', // 预览图后缀
-        multiple: false, // 是否批量上传
+        totalNum: 1, // 大于1 支持批量上传
         UploadedImage: null, // 已上传的图片展示
         UploadButton: null, // 上传按钮
         value:[], // 回显值
         dealResponse:(response) => response, // 处理图片服务器返回值
         getSignatureInfo: () => {},
+        onChange:() => {}, // 上层组件获取值
+        showImage: () => {}, // 查看图片
+        showErrorMessage:(message) => {
+            console.warn(message);
+        }
     };
 
     constructor(props){
@@ -34,7 +39,6 @@ class BaseUpload extends Component{
 
     // 删除已上传文件
     handleDeleted = (item) => {
-        console.log(item);
         this.setState({fileList: this.state.fileList.filter((it) => item.key !== it.key)});
     };
 
@@ -51,17 +55,38 @@ class BaseUpload extends Component{
 
     };
 
+    // 查看图片
+    handleShowImage = (index) => {
+        const {showImage} = this.props;
+
+        showImage && showImage(index,this.state.fileList.map((item) => item.url));
+    };
+
     getHandles = () => {
         return {
             handleDeleted: this.handleDeleted,
             handleSort: this.handleSort,
+            handleShowImage: this.handleShowImage,
         };
     };
 
     handleOnChange = async (files) => {
 
-        const {uploadServerHost, dealResponse, getSignatureInfo} = this.props;
+        const {
+            uploadServerHost,
+            dealResponse,
+            getSignatureInfo,
+            onChange,
+            totalNum,
+            showErrorMessage
+        } = this.props;
 
+        const {fileList} = this.state;
+
+        if(files.length > (totalNum - fileList.length)){
+            showErrorMessage && showErrorMessage(`上传总数量超过限制了, 请重新选择`);
+            return;
+        }
         for(let index = 0; index < files.length; index++){
             const file = files[index];
 
@@ -89,6 +114,8 @@ class BaseUpload extends Component{
                         type: file.type,
                         webkitRelativePath: file.webkitRelativePath,
                     },dealResponse(result))])
+                },() => {
+                    onChange && onChange(this.state.fileList.map((item) => item.key));
                 });
 
             };
@@ -124,9 +151,9 @@ class BaseUpload extends Component{
 
     render(){
 
-        const { multiple, UploadButton } = this.props;
+        const { totalNum, UploadButton } = this.props;
 
-        const {fileInput} = this.state;
+        const {fileInput, fileList} = this.state;
 
 
         return <div className='simple-upload-wrapper'>
@@ -134,16 +161,13 @@ class BaseUpload extends Component{
                 this.getRenderUploaded()
             }
             {
-                UploadButton ?
+                fileList.length < totalNum ?  UploadButton ?
                     <UploadButton onResize={this.onResize}>
                         <input
                             type="file"
                             accept="image/*"
-                            multiple={multiple}
+                            multiple={ (totalNum - fileList.length)  > 1}
                             onChange={(event) => {
-                                console.log(event);
-                                console.log(event.target);
-                                console.log(event.target.files);
                                 this.handleOnChange(event.target.files);
                             }}
                             style={{
@@ -160,15 +184,14 @@ class BaseUpload extends Component{
                     </UploadButton> :  <input
                         type="file"
                         accept="image/*"
-                        multiple={multiple}
+                        multiple={(totalNum - fileList.length)  > 1}
                         onChange={(event) => {
                             this.handleOnChange(event.target.files);
                         }}
-                    />
+                    /> : null
             }
         </div>;
     }
-
 }
 
 export default BaseUpload;

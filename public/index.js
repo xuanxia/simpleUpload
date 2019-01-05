@@ -4,11 +4,11 @@ import { ImageUpload } from '@/index';
 
 
 const getSignatureInfo =  (option) => {
-    const {suffix,width,height,} = option;
+    const {width,height,} = option;
     const apiServerUrl = 'https://hp.bncry.cn/util/getAliyunSignature';
     const url = `${apiServerUrl}?${[
         `bizName=test`,
-        `suffix=${suffix}`,
+        `suffix=jpg`,
         `width=${width}`,
         `height=${height}`,
     ].join('&')}`;
@@ -62,6 +62,13 @@ export default  class Demo extends Component{
                 uploadServerHost={host}
                 downloadServerHost={host}
                 draggable={true}
+                totalNum={2}
+                showImage={(index,list) => {
+                    console.log(index, list);
+                }}
+                onChange={(value) => {
+                    console.log(value);
+                }}
             />
         </div>;
     }

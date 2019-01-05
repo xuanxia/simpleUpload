@@ -42,7 +42,7 @@ export default class UploadedImage  extends Component{
             return;
         }
 
-        const { handleDeleted } = handles;
+        const { handleDeleted, handleShowImage } = handles;
 
         return <DragDropContext onDragEnd={this.onDragEnd}>
             <Droppable droppableId="droppable" direction="horizontal">
@@ -92,11 +92,29 @@ export default class UploadedImage  extends Component{
                                                         top: 5,
                                                         zIndex: 10,
                                                         color: '#fff',
-                                                        background: '#e2e2e2',
+                                                        background: 'rgb(82, 79, 79, 0.5)',
                                                         padding: '2px 5px',
                                                         cursor: 'pointer',
                                                     }}>删除</a>
-
+                                                <a
+                                                    onClick={() => {
+                                                        handleShowImage &&  handleShowImage(index);
+                                                    }}
+                                                    className='image-show'
+                                                    style={{
+                                                        display: 'inline-block',
+                                                        position: 'absolute',
+                                                        fontSize: 12,
+                                                        left: 0,
+                                                        top: 0,
+                                                        zIndex: 9,
+                                                        color: '#fff',
+                                                        padding: '44px 38px',
+                                                        cursor: 'pointer',
+                                                    }}
+                                                >
+                                                    查看
+                                                </a>
                                             </div>
                                         
                                     }

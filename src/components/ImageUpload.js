@@ -11,16 +11,29 @@ export default class ReactUpload extends PureComponent{
 
     render(){
 
-        const {dealResponse, uploadServerHost, downloadServerHost, draggable,getSignatureInfo} = this.props;
+        const {
+            dealResponse,
+            uploadServerHost,
+            downloadServerHost,
+            draggable,
+            getSignatureInfo,
+            showImage,
+            onChange,
+            totalNum,
+            showErrorMessage
+        } = this.props;
 
         return  <BaseUpload
-            multiple={true}
+            totalNum={totalNum}
             uploadServerHost={uploadServerHost}
             downloadServerHost={downloadServerHost}
             UploadedImage={draggable ? DraggableUploadedImage : UploadedImage}
             UploadButton={UploadButton}
             dealResponse={dealResponse}
             getSignatureInfo={getSignatureInfo}
+            onChange={onChange}
+            showImage={showImage}
+            showErrorMessage={showErrorMessage}
         />;
     }
 }
