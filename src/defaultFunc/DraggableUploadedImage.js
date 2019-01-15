@@ -13,12 +13,15 @@ const getListStyle = (isDraggingOver) => ({
 const getItemStyle = (isDragging, draggableStyle) => ({
     display: 'inline-block',
     marginRight: 8,
+    marginBottom: 8,
     position:'relative',
     padding: 0,
     userSelect: 'none',
     background: isDragging ?  '#fff' : '#fff',
     ...draggableStyle,
 });
+
+// //staticonline.hipac.cn/sp/tp/content/201808/08091659329724.png
 
 export default class UploadedImage  extends Component{
     constructor(props){
@@ -36,7 +39,7 @@ export default class UploadedImage  extends Component{
 
     render(){
 
-        const {fileList,handles,} = this.props;
+        const {fileList,handles, showShade} = this.props;
 
         if(!fileList || !fileList.length){
             return;
@@ -80,6 +83,22 @@ export default class UploadedImage  extends Component{
                                                     src={`${item.url}`}
                                                     alt=""
                                                 />
+
+                                                {
+                                                    showShade && <img
+                                                        style={{
+                                                            display: 'inline-block',
+                                                            position: 'absolute',
+                                                            fontSize: 12,
+                                                            left: 0,
+                                                            top: 0,
+                                                            zIndex: 8,
+                                                        }}
+                                                        width={100}
+                                                        height={100}
+                                                        src="//staticonline.hipac.cn/sp/tp/content/201808/08091659329724.png" alt=""/>
+                                                }
+
                                                 <a
                                                     onClick={() => {
                                                         handleDeleted && handleDeleted(item);

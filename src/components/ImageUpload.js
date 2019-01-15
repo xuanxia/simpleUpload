@@ -20,10 +20,13 @@ export default class ReactUpload extends PureComponent{
             showImage,
             onChange,
             totalNum,
-            showErrorMessage
+            showErrorMessage,
+            value,
+            showShade
         } = this.props;
 
         return  <BaseUpload
+            value={value}
             totalNum={totalNum}
             uploadServerHost={uploadServerHost}
             downloadServerHost={downloadServerHost}
@@ -34,6 +37,7 @@ export default class ReactUpload extends PureComponent{
             onChange={onChange}
             showImage={showImage}
             showErrorMessage={showErrorMessage}
+            showShade={showShade}
         />;
     }
 }

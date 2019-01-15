@@ -18,7 +18,7 @@ export default class UploadedImage  extends Component{
 
         return <div style={{display: 'inline-block'}}>
             {
-                fileList.map((item) => <div  key={item.key} style={{
+                fileList.map((item,index) => <div  key={item.key} style={{
                     display: 'inline-block',
                     position: 'relative',
                     marginRight: 12
@@ -49,7 +49,7 @@ export default class UploadedImage  extends Component{
 
                     <a
                         onClick={() => {
-                            handleShowImage &&  handleShowImage(item);
+                            handleShowImage &&  handleShowImage(index);
                         }}
                         className='image-show'
                         style={{

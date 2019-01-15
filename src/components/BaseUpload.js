@@ -19,6 +19,7 @@ class BaseUpload extends Component{
         getSignatureInfo: () => {},
         onChange:() => {}, // 上层组件获取值
         showImage: () => {}, // 查看图片
+        showShade: false, // 是否有参考线
         showErrorMessage:(message) => {
             console.warn(message);
         }
@@ -39,7 +40,10 @@ class BaseUpload extends Component{
 
     // 删除已上传文件
     handleDeleted = (item) => {
-        this.setState({fileList: this.state.fileList.filter((it) => item.key !== it.key)});
+        this.setState({fileList: this.state.fileList.filter((it) => item.key !== it.key)},() => {
+            this.props.onChange(this.state.fileList.map((item) => item.key));
+        });
+
     };
 
     // 排序
@@ -51,7 +55,9 @@ class BaseUpload extends Component{
         result[startIndex] = result[endIndex];
         result[endIndex] = temp;
 
-        this.setState({fileList: result});
+        this.setState({fileList: result},() => {
+            this.props.onChange(this.state.fileList.map((item) => item.key));
+        });
 
     };
 

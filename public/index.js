@@ -51,6 +51,7 @@ const dealResponse =  (response) => {
 
 };
 
+
 export default  class Demo extends Component{
 
     render(){
@@ -69,6 +70,7 @@ export default  class Demo extends Component{
                 onChange={(value) => {
                     console.log(value);
                 }}
+                showShade={true}
             />
         </div>;
     }
