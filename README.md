@@ -1,7 +1,49 @@
 # simpleUpload
 简单的文件上传组件
 
-## 封装的图片上传组件 使用
+## 封装图片上传组件
+```
+import React, {PureComponent} from 'react';
+import BaseUpload from './BaseUpload';
+import { UploadedImage, UploadButton, DraggableUploadedImage } from '../defaultFunc';
+
+export default class ReactUpload extends PureComponent{
+
+    render(){
+
+        const {
+            dealResponse,
+            uploadServerHost,
+            downloadServerHost,
+            draggable,
+            getSignatureInfo,
+            showImage,
+            onChange,
+            totalNum,
+            showErrorMessage,
+            value,
+            showShade
+        } = this.props;
+
+        return  <BaseUpload
+            value={value}
+            totalNum={totalNum}
+            uploadServerHost={uploadServerHost}
+            downloadServerHost={downloadServerHost}
+            UploadedImage={draggable ? DraggableUploadedImage : UploadedImage}
+            UploadButton={UploadButton}
+            dealResponse={dealResponse}
+            getSignatureInfo={getSignatureInfo}
+            onChange={onChange}
+            showImage={showImage}
+            showErrorMessage={showErrorMessage}
+            showShade={showShade}
+        />;
+    }
+}
+
+```
+## 图片上传组件 使用
 ```
 import React, {Component} from 'react';
 import { ImageUpload } from '@/index';
