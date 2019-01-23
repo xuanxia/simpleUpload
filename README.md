@@ -1,6 +1,8 @@
 # simpleUpload
 简单的文件上传组件
 
+## 封装的图片上传组件 使用
+```
 import React, {Component} from 'react';
 import { ImageUpload } from '@/index';
 
@@ -77,3 +79,5 @@ export default  class Demo extends Component{
         </div>;
     }
 }
+```
+
